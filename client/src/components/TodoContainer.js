@@ -6,23 +6,7 @@ import InputTodo from "./InputTodo";
 
 class TodoContainer extends Component {
   state = {
-    todos: [
-      {
-        id: 1,
-        title: "Bitcoin",
-        completed: true
-      },
-      {
-        id: 2,
-        title: "Polkadot",
-        completed: false
-      },
-      {
-        id: 69,
-        title: "DogeCoin",
-        completed: false
-      }
-    ]
+    todos: []
   };
   
   handleChange = (id) => {
@@ -69,6 +53,23 @@ class TodoContainer extends Component {
         return todo;
       }),
     });
+  };
+
+  componentDidMount() {
+    const temp = localStorage.getItem("todos");
+    const loadedTodos = JSON.parse(temp);
+    if (loadedTodos) {
+      this.setState({
+        todos: loadedTodos
+      });
+    }
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.todos !== this.state.todos) {
+      const temp = JSON.stringify(this.state.todos);
+      localStorage.setItem("todos", temp);
+    }
   };
 
   render() {
