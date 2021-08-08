@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
+// import { Route, Switch } from "react-router-dom";
 
+// Components
 import Header from "./Header";
 import InputTodo from "./InputTodo";
 import TodoList from "./TodoList";
+import Navbar from "./Navbar";
+
+// Pages
+import About from "../pages/About";
+import NotMatch from "../pages/NotMatch";
 
 const TodoContainer = () => {
   const [todos, setTodos] = useState(getInitialTodos());
@@ -55,7 +62,7 @@ const TodoContainer = () => {
         return todo;
       }),
     );
-  }
+  };
 
   useEffect(() => {
     console.log("testing react effect");
@@ -70,44 +77,52 @@ const TodoContainer = () => {
   }, []);
 
   return (
-    <div className="container">
-      <div className="inner">
-        <Header />
-        <InputTodo addTodoProps={addTodoItem} />
-        <TodoList
-          todos = {todos}
-          handleChangeProps = {handleChange}
-          deleteTodoProps = {deleteTodo}
-          setUpdate = {setUpdate}
-        />
-      </div>
-    </div>
+    <>
+      <Navbar />
+          <div className="container">
+            <div className="inner">
+              <Header />
+              <InputTodo addTodoProps={addTodoItem} />
+              <TodoList
+                todos = {todos}
+                handleChangeProps = {handleChange}
+                deleteTodoProps = {deleteTodo}
+                setUpdate = {setUpdate}
+              />
+            </div>
+          </div>
+          <About />
+          <NotMatch />
+    </>
   );
+
+  /* return (
+    <>
+      <Navbar />
+      <Switch>
+        <Route exact path="/">
+          <div className="container">
+            <div className="inner">
+              <Header />
+              <InputTodo addTodoProps={addTodoItem} />
+              <TodoList
+                todos = {todos}
+                handleChangeProps = {handleChange}
+                deleteTodoProps = {deleteTodo}
+                setUpdate = {setUpdate}
+              />
+            </div>
+          </div>
+        </Route>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route path="*">
+          <NotMatch />
+        </Route>
+      </Switch>
+    </>
+  ); */
 }
 
 export default TodoContainer
-  
-
-
-  
-
-  
-
-/*   
-
-  componentDidMount() {
-    const temp = localStorage.getItem("todos");
-    const loadedTodos = JSON.parse(temp);
-    if (loadedTodos) {
-      this.setState({
-        todos: loadedTodos
-      });
-    }
-  };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.todos !== this.state.todos) {
-      const temp = JSON.stringify(this.state.todos);
-      localStorage.setItem("todos", temp);
-    }
-  }; */

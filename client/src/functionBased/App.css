@@ -86,3 +86,8 @@ body {
 .App-link {
   color: #09d3ac;
 }
+
+.active-link {
+  color: orangered;
+  text-decoration: underline;
+}
