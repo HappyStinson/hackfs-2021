@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
 import AudiusHttpAPI from "./audius/HttpApi/HttpApi";
-import TodoContainer from "./components/TodoContainer";
+import TodoContainer from "./functionBased/components/TodoContainer";
 
 // Stylesheets
-import "./App.css";
+import "./functionBased/App.css";
 
 class App extends Component {
 
