@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import { Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 // Components
 import Header from "./Header";
@@ -79,26 +79,6 @@ const TodoContainer = () => {
   return (
     <>
       <Navbar />
-          <div className="container">
-            <div className="inner">
-              <Header />
-              <InputTodo addTodoProps={addTodoItem} />
-              <TodoList
-                todos = {todos}
-                handleChangeProps = {handleChange}
-                deleteTodoProps = {deleteTodo}
-                setUpdate = {setUpdate}
-              />
-            </div>
-          </div>
-          <About />
-          <NotMatch />
-    </>
-  );
-
-  /* return (
-    <>
-      <Navbar />
       <Switch>
         <Route exact path="/">
           <div className="container">
@@ -122,7 +102,7 @@ const TodoContainer = () => {
         </Route>
       </Switch>
     </>
-  ); */
+  );
 }
 
 export default TodoContainer
