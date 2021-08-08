@@ -10,7 +10,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
         <h1>Ras Crypto Adventure!</h1>
         <TodoContainer />
 
@@ -18,7 +18,7 @@ class App extends Component {
         <AudiusHttpAPI />
       </div>
     );
-  }
+  };
 }
 
 export default App;
