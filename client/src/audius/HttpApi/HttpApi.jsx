@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import WikipediaAPI from '../../functionBased/components/WikipediaAPI';
 
 import './AudiusApi.css'
 
@@ -184,6 +185,8 @@ const AudiusHttpAPI = () => {
         // onKeyDown={stopMP3}
       />
       </div>
+
+      <WikipediaAPI />
 
     </div>
   );
