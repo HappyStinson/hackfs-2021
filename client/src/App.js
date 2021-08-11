@@ -12,9 +12,8 @@ class App extends Component {
     return (
       <div>
         <h1>Ras Crypto Adventure!</h1>
-        <TodoContainer />
+        {/* <TodoContainer /> */}
 
-        <h1>Audius API Example</h1>
         <AudiusHttpAPI />
       </div>
     );
