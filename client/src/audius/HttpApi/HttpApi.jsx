@@ -18,7 +18,6 @@ const AudiusHttpAPI = () => {
   const [host, setHost] = useState(null);
   const [streaming, setStreaming] = useState(false);
   const [streamUrl, setStreamUrl] = useState(null);
-  const [mp3, setMP3] = useState(null);
   const [user, setUser] = useState(null);
 
   const appName = "RAS-CRYPTO-ADVENTURE";
@@ -35,38 +34,9 @@ const AudiusHttpAPI = () => {
       setTrack(topTrack);
       setUser(topTrack.user);
       setStreamUrl(mp3.url);
-      // setStreaming(true);
     }
     init();
   }, []);
-
-/*   useEffect(() => {
-    if (streaming) {
-      const track = document.getElementById("player");
-      setMP3(track);
-      track.play();
-    }
-  }, [streaming]); */
-
-/*   const playMP3 = () => {
-    if (mp3) {
-      setStreaming(true);
-      mp3.play();
-    } else {
-      alert("Can't play audio!");
-    }
-  };
-
-  const stopMP3 = event => {
-    if (event.key === "Enter") {
-      if (mp3) {
-        setStreaming(false);
-        mp3.pause();
-      } else {
-        alert("Can't stop audio!");
-      }
-    }
-  }; */
 
   const play = () => {
     document.getElementById("player").play();
@@ -76,16 +46,6 @@ const AudiusHttpAPI = () => {
   const pause = () => {
     document.getElementById("player").pause();
     setStreaming(false);
-  };
-
-  const logTrack = () => {
-    console.log("Logging Track object");
-    console.log(track);
-  };
-
-  const logUser = () => {
-    console.log("Logging User object");
-    console.log(user);
   };
 
   const remix = () => {
@@ -98,10 +58,8 @@ const AudiusHttpAPI = () => {
 
   return host && track && user && (
     <div>
-      <h1>Audius HTTP API</h1>
-      <h2>Details</h2>
-        Audius Host: {host} <br />
-        Stream URL: {streamUrl} <br />
+      Audius Host: {host} <br />
+      Stream URL: {streamUrl} <br />
 
       <h2>Track Response</h2>
         <div className="artwork">
@@ -158,9 +116,7 @@ const AudiusHttpAPI = () => {
         Track count: {user.track_count} <br />
       </p>
         
-      <h2
-        // onDoubleClick = {playMP3}
-      >
+      <h2>
         Streaming? {JSON.stringify(streaming)}
       </h2>
 
@@ -174,16 +130,6 @@ const AudiusHttpAPI = () => {
 {/*           <button onClick="document.getElementById('player').volume+=0.1">Volume Up</button>
           <button onClick="document.getElementById('player').volume-=0.1">Volume Down</button> */}
         </div>
-
-        <div>
-          <button onClick={logTrack}>Log Track</button>
-          <button onClick={logUser}>Log User</button>
-        </div>
-
-        <input
-        type = "text"
-        // onKeyDown={stopMP3}
-      />
       </div>
 
       <WikipediaAPI />

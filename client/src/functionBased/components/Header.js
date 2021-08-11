@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = () => { // same as function Header()
+const Header = () => {
   const headerStyle = {
     padding: "20px 0",
     lineHeight: "1.5em",
@@ -19,7 +19,7 @@ const Header = () => { // same as function Header()
           textAlign: "center",
         }}
       >
-        My Inventory
+        Chill with Audius API
       </h1>
     </header>
   )

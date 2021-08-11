@@ -14,6 +14,9 @@ const About = () => {
         <li>
           <Link to={`${url}/about-author`}>About Author</Link>
         </li>
+        <li>
+          <Link to={`${url}/about-audius`}>About Audius</Link>
+        </li>
       </ul>
       <Route path={`${path}/:slug`}>
         <SinglePage />
