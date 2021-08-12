@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 
-import AudiusHttpAPI from "./audius/HttpApi/HttpApi";
-
+import AudiusHttpAPI from "./functionBased/components/AudiusApi";
 import Navbar from "./functionBased/components/Navbar";
 import Header from "./functionBased/components/Header";
 
