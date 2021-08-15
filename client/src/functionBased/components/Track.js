@@ -4,7 +4,7 @@ import classes from "./Track.module.css";
 
 const Track = (props) => {
   return (
-    <div className={classes.Wrapper}>
+    <div>
       <p><strong>{props.responseObj.title}</strong></p>
       {props.responseObj.genre}
       
