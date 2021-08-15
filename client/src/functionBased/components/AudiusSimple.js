@@ -13,75 +13,79 @@ const Audius = (props) => {
   const [responseObj, setResponseObj] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [streamUrl, setStreamUrl] = useState(null);
   const { theme } = useContext(ThemeContext);
 
-  const getTrack = (theme) => {
-    setError(false);
-    setResponseObj({});
-    setLoading(true);
+  const appName = "CHILL-WITH-AUDIUS";
 
-    const genre = theme;
-    // console.log(`AudiusSimple: ${host}`);
-
-    fetch(`${host}/v1/tracks/trending?genre=${genre}&limit=1&timeRange=week?app_name=EXAMPLEAPP`)
-      .then(response => response.json())
-      .then(response => {
-        setResponseObj(sample(response.data)); // not really using this here
-        const t = sample(response.data);
-        setTrack(t);
-        console.log("Response data:");
-        console.log(response.data);
-        console.log("Track:");
-        console.log(t);
-        setTracks(response.data);
-        setLoading(false);
-      })
-      .catch(err => {
-        setError(true);
-        setLoading(false);
-        console.log(`Error fetching Audius tracks. ${err.message}`);
-      });
-    };
-
+  // Get the tracks when we initialize component with host
   useEffect(() => {
-    getTrack(theme);
-    /* setError(false);
-    setResponseObj({});
-    setLoading(true);
+    const fetchTrack = async () => {
+      try {
+        const res = await fetch(`${host}/v1/tracks/trending?limit=1&timeRange=week&app_name=${appName}`);
+        const json = await res.json();
+        const track = sample(json.data);
+        setTrack(track);
+        setTracks(json.data);
+        console.log("fetchTrack successful!");
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchTrack();
+  }, [host]);
 
-    const genre = theme;
-    // console.log(`AudiusSimple: ${host}`);
-
-    fetch(`${host}/v1/tracks/trending?genre=${genre}&limit=1&timeRange=week?app_name=EXAMPLEAPP`)
-      .then(response => response.json())
-      .then(response => {
-        setResponseObj(sample(response.data)); // not really using this here
-        setTrack(sample(response.data));
-        console.log(`Response data: ${response.data}`)
-        setTracks(response.data);
-        setLoading(false);
-      })
-      .catch(err => {
-        setError(true);
-        setLoading(false);
-        console.log(`Error fetching Audius tracks. ${err.message}`);
-      }); */
-  }, [theme]);
-
-  const getRandomTrack = () => {
+  // Keep on shufflin'
+  const shuffle = () => {
     const newTrack = sample(tracks);
     setTrack(newTrack);
-
-    // Play the track
+    console.log("New Track!");
+    console.log(newTrack.title);
   };
+
+  // Need to get the stream from Audius
+  const getStreamUrl = () => {
+    // Clear state in preparation for new data
+    setError(false);
+    setLoading(true);
+
+    setResponseObj({});
+    
+    fetch(`${host}/v1/tracks/${track.id}/stream`)
+    .then(response => {
+      if (response.url === null) {
+        throw new Error("getStreamUrl");
+      }
+      setStreamUrl(response.url);
+      setLoading(false);
+    })
+    .catch(err => {
+      setError(true);
+      setLoading(false);
+      console.log(err.message);
+    });
+  };
+
+  // Autoplay current track as soon as we update the stream URL
+  useEffect(() => {
+    const player = document.getElementById("player");
+    if (player && streamUrl) {
+      player.play();
+    } else {
+      console.error(player);
+    }
+  }, [streamUrl]);
 
   return track && (
     <>
+
       <div className="topTrack">
         <div className="artwork">
-          <img src={track.artwork['150x150']} alt='artwork' />
+          <img src={track.artwork['480x480']} alt='artwork' />
         </div>
+
+        <audio id="player" src={streamUrl} onEnded={shuffle} controls type="audio/mpeg" />
+        
         <div className="title">
           { track.title }
         </div>
@@ -91,7 +95,8 @@ const Audius = (props) => {
 
         <p>Theme is {theme} & Genre is { track.genre }</p>
 
-        <Button onClick={getRandomTrack}>Keep 'em Coming</Button>
+        <Button onClick={getStreamUrl}>Listen Now</Button>
+        <Button onClick={shuffle}>Shuffle</Button>
       </div>
     </>
   );
