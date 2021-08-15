@@ -37,38 +37,37 @@ const Audius = (props) => {
 
   // Keep on shufflin'
   const shuffle = () => {
-    const newTrack = sample(tracks);
-    setTrack(newTrack);
-    console.log("New Track!");
-    console.log(newTrack.title);
+    setTrack(sample(tracks));
   };
 
-  // Need to get the stream from Audius
-  const getStreamUrl = () => {
-    // Clear state in preparation for new data
-    setError(false);
-    setLoading(true);
-
-    setResponseObj({});
-    
-    fetch(`${host}/v1/tracks/${track.id}/stream`)
-    .then(response => {
-      if (response.url === null) {
-        throw new Error("getStreamUrl");
-      }
-      setStreamUrl(response.url);
-      setLoading(false);
-    })
-    .catch(err => {
-      setError(true);
-      setLoading(false);
-      console.log(err.message);
-    });
-  };
+  // Need to get the stream from Audius when track changes
+  useEffect(() => {
+    if (track) {
+      // Clear state in preparation for new data
+      setError(false);
+      setLoading(true);
+      
+      fetch(`${host}/v1/tracks/${track.id}/stream`)
+      .then(response => {
+        if (response.url === null) {
+          throw new Error("getStreamUrl");
+        }
+        setStreamUrl(response.url);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(true);
+        setLoading(false);
+        console.log(err.message);
+      });
+    } else {
+      console.error("No track to stream");
+    }
+  }, [track]);
 
   // Autoplay current track as soon as we update the stream URL
   useEffect(() => {
-    const player = document.getElementById("player");
+    const player = document.querySelector("audio");
     if (player && streamUrl) {
       player.play();
     } else {
@@ -78,7 +77,6 @@ const Audius = (props) => {
 
   return track && (
     <>
-
       <div className="topTrack">
         <div className="artwork">
           <img src={track.artwork['480x480']} alt='artwork' />
@@ -95,7 +93,6 @@ const Audius = (props) => {
 
         <p>Theme is {theme} & Genre is { track.genre }</p>
 
-        <Button onClick={getStreamUrl}>Listen Now</Button>
         <Button onClick={shuffle}>Shuffle</Button>
       </div>
     </>
