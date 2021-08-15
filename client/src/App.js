@@ -22,7 +22,7 @@ class App extends Component {
       <Theme>
         <TopBar />
         <ContentContainer>
-          <Title>Chill with Audius API</Title>
+          <Title>Chill with Audius</Title>
           <AudiusHost />
         </ContentContainer>
       </Theme>

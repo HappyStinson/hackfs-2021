@@ -11,11 +11,14 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 70px;
   background-color: ${(props) => props.theme.background};
+  position: fixed;
 `;
 
 const TopBar = () => {
-  const { theme, switchTheme } = useContext(ThemeContext);
+  const { switchTheme } = useContext(ThemeContext);
 
   return (
     <Container>
