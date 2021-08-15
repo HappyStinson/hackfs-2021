@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { ThemeContext } from "../../contexts/ThemeStore";
 
+import Button from "./Button";
+
 const Container = styled.div`
   width: "100%";
   height: 60px;
@@ -10,18 +12,6 @@ const Container = styled.div`
   align-items: center;
   padding-right: 30px;
   background-color: ${(props) => props.theme.background};
-`;
-
-const Button = styled.button`
-  display: block;
-  margin: 10px auto;
-  padding: .5rem;
-  font-size: 1em;
-  background: darkcyan;
-  border-radius: 5px;
-  color: ${(props) => props.theme.text};
-  cursor: pointer;
-  margin: 5px auto;
 `;
 
 const TopBar = () => {
