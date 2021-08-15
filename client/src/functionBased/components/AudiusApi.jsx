@@ -12,7 +12,7 @@ const sample = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 ;
 
-const AudiusHttpAPI = () => {
+const AudiusAPI = () => {
   const [host, setHost] = useState(null);
   const [responseObj, setResponseObj] = useState({});
   const [genre, setGenre] = useState("Electronic");
@@ -92,4 +92,4 @@ const AudiusHttpAPI = () => {
   );
 }
 
-export default AudiusHttpAPI
+export default AudiusAPI;
