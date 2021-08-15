@@ -11,7 +11,10 @@ const Artwork = styled.img`
   overflow: hidden;
   border-radius: 50px;
   display: block;
-  box-shadow: gray;
+  box-shadow: 0 0 20px 0 #000a;
+  margin-left: 50px;
+  margin-top: 50px;
+  /* position: absolute; */
 `;
 
 const TrackTitle = styled.h2`
@@ -27,12 +30,13 @@ const Artist = styled.h3`
 
 const MusicPlayer = styled.audio`
   position: fixed;
-  background-color: ${(props) => props.theme.background};
+  top: 90%;
+  left: 40%;
+  box-shadow: 0 0 20px 0 #000a;
 `;
 
 const Audius = (props) => {
   const { theme } = useContext(ThemeContext);
-  // const host, setHost] = useState(props.host);
   const [track, setTrack] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [streamUrl, setStreamUrl] = useState(null);
@@ -103,7 +107,6 @@ const Audius = (props) => {
     <>
         <Artwork src={track.artwork['480x480']} alt='artwork' />
 
-        
         <TrackTitle>
           { track.title }
         </TrackTitle>
@@ -112,9 +115,7 @@ const Audius = (props) => {
           { track.user.name }
         </Artist>
 
-        <p>Theme is {theme} & Genre is { track.genre }</p>
-
-        <Button onClick={shuffle}>Shuffle</Button>
+        <Button fixed onClick={shuffle}>Shuffle</Button>
         <MusicPlayer id="player" src={streamUrl} onEnded={shuffle} controls type="audio/mpeg" />
     </>
   );

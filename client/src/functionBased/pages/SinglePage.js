@@ -8,7 +8,7 @@ const SinglePage = () => {
       slug: "about-app",
       title: "About the App",
       description:
-        "My project for ETHGlobal HackFS 2021 Hackathon! A text-based NFT adventure game, introducing players to the blockchain. This game presents a text-based interface in the browser to allow players to engage in a story that will educate them on different topics around the blockchain. Players can trade and exchange items found in the game. It will feature music from the Audius API.",
+        "My project for ETHGlobal HackFS 2021 Hackathon! Shuffle trending music while reading information about the selected genre. Uses the Audius HTTP API and Wikipedia API.",
     },
     {
       slug: "about-author",
